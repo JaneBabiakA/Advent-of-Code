@@ -1,12 +1,12 @@
 #include<vector>
 #include <fstream>
 #include<iostream>
-#include<algorithm>
+#include<unordered_map>
 
 int parseInt(int& pos, std::string text){
     int result = 0;
     while(isdigit(text[pos])){
-        result = result * 10 + text[pos];
+        result = result * 10 + (text[pos] - '0');
         pos++;
     }
     return result;
@@ -19,7 +19,7 @@ void skipWhiteSpace(int& pos, std::string text){
 }
 
 void parseInput(std::vector<int>& list1, std::vector<int>& list2){
-    std::fstream file("input.txt");
+    std::fstream file("./../input.txt");
     std::string content;
     while(getline(file, content)){
         int pos = 0;
@@ -31,11 +31,13 @@ void parseInput(std::vector<int>& list1, std::vector<int>& list2){
 }
 
 int solve(std::vector<int> list1, std::vector<int> list2){
-    std::sort(list1.begin(), list1.end());
-    std::sort(list2.begin(), list2.end());
+    std::unordered_map<int, int> similarities;
+    for(int i = 0; i < list2.size(); i++){
+        similarities[list2[i]] = similarities[list2[i]] + 1;
+    }
     int total = 0;
     for(int i = 0; i < list1.size(); i++){
-        total += std::abs(list1[i] - list2[i]);
+        total += (list1[i] * similarities[list1[i]]);
     }
     return total;
 }
