@@ -12,7 +12,6 @@ std::string parseInput(){
 
 int parseMul(std::string content){
     int index = 0;
-    std::string match = "mul(";
     int total = 0;
     bool enabled = true;
     while(index < content.length() - 4){
