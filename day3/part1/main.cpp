@@ -14,14 +14,10 @@ int parseMul(std::string content){
     int index = 0;
     std::string match = "mul(";
     int total = 0;
-    while(index < content.length() + 4){
-        if(content[index] == 'm'){
-            index++;
-            if(content.substr(index, 3) != "ul("){
-                index++;
-                continue;
-            }
-            index += 3;
+    bool enabled = true;
+    while(index < content.length() - 4){
+        if(content.substr(index, 4) == "mul("){
+            index += 4;
             int mul1 = 0;
             while(isdigit(content[index])){
                 mul1 = mul1 * 10 + (content[index] - '0');
